@@ -1,0 +1,36 @@
+{
+  "chrome_extension_description": {
+    "message": "Automaticaly tops goods on fler.cz."
+  },
+  "time_measure_d": {
+    "message": "d"
+  },
+  "time_measure_h": {
+    "message": "h"
+  },
+  "time_measure_m": {
+    "message": "m"
+  },
+  "time_measure_s": {
+    "message": "s"
+  },
+  "offline": {
+    "message": "Could not connect to server!"
+  },
+  "offline_help": {
+    "message": "Make sure you are connected to the Internet and you are logged in the fler.cz."
+  },
+  "starting": {
+    "message": "Starting the application…"
+  },
+  "loading": {
+    "message": "Loading data…"
+  },
+  "next": {
+    "message": "Next top:"
+  },
+  "top": {
+    "message": "Topping…"
+  }
+  
+}
