@@ -30,21 +30,21 @@ var time={
 		ret+=this.leadZeros(date.getMinutes());
 		return ret;
 	},
-	getLeftString:function(labels){
+	getLeftString:function(){
 		l=this.getLeftTime();
 		if(l===null){
 			return " ";
 		}
 		if(l[0]>0){
-			return l[0]+labels[3];
+			return l[0]+"d";
 		}
 		if(l[1]>0){
-			return l[1]+labels[2];
+			return l[1]+"h";
 		}
 		if(l[2]>0){
-			return l[2]+labels[1];
+			return l[2]+"m";
 		}
-		return l[3]+labels[0];
+		return l[3]+"s";
 	},
 	set:function(time){
 		if(time===null){

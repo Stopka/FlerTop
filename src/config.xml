@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget xmlns="http://www.w3.org/ns/widgets" version="1.2.1">
+  <name>FlerTop</name>
+  <icon src="icons/fler_64.png"/>
+  <feature name="opera:share-cookies" required="true"/>
+  <access origin="http://fler.cz" subdomains="true" />
+  <license>Copyright 2012 Stopka. All rights reserved.</license>
+  <author href="mailto:stepan.s@gmail.com" email="stepan.s@gmail.com">Štěpán Škorpil</author>
+  <description xml:lang="en">Automaticaly tops your goods on fler.cz.</description>
+  <description xml:lang="cs">Automaticky topuje vaše zboží na fler.cz.</description>
+</widget>

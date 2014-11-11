@@ -1,23 +1,28 @@
 var button={
 	button:null,
 	constant: {
-		icon:{path:'icons/fler_18.png'},
-		iconOff:{path:'icons/fler_18-gray.png'},
-		badgeTop:{color:[255,0,0,255]},
-		badgeLoad:{color:[100,100,100,50]},
-		badgeWait:{color:[0,0,255,255]},
-                labels:Array(
-			chrome.i18n.getMessage("time_measure_s"),
-			chrome.i18n.getMessage("time_measure_m"),
-			chrome.i18n.getMessage("time_measure_h"),
-			chrome.i18n.getMessage("time_measure_d")
-			)
+		icon:'icons/fler_18.png',
+		iconOff:'icons/fler_18-gray.png',
+		badgeOff:'rgba(255,255,255,100)',
+		badge:'rgba(0,0,255,1)',
+		txtOff:'black',
+		txt:'white'
 	},
 	init:function(){
-		chrome.browserAction.setIcon(this.constant.iconOff);
-		chrome.browserAction.setBadgeBackgroundColor(this.constant.badgeLoad);
-		chrome.browserAction.setTitle({title:chrome.i18n.getMessage("starting")});
-		chrome.browserAction.setBadgeText({text:""});
+		properties= {
+			disabled: false,
+			title: "Spouštím aplikaci…",
+			icon: this.constant.iconOff,
+			onclick: fler.user,
+			badge: {
+				display: "none",
+				backgroundColor:this.constant.badgeOff,
+				color: this.constant.txtOff,
+				textContent:"…"
+			}
+		}
+		this.button=opera.contexts.toolbar.createItem(properties),
+		opera.contexts.toolbar.addItem(this.button);
 	},
 	changeState:function(state){
 		state();
@@ -29,35 +34,38 @@ var button={
 	onUpdate:function(){},
 	state:{
 		loading:function(){
-			chrome.browserAction.setIcon(button.constant.iconOff);
-			chrome.browserAction.setBadgeBackgroundColor(button.constant.badgeLoad);
-			chrome.browserAction.setTitle({title:chrome.i18n.getMessage("loading")});
-			chrome.browserAction.setBadgeText({text:"…"});
-			button.onUpdate=function(){};		
+			button.button.badge.display="block";
+			button.button.badge.backgroundColor =button.constant.badgeOff;
+			button.button.badge.color = button.constant.txtOff;
+			button.button.badge.textContent="…";
+			button.button.title="Načítám informace…";
+			button.onUpdate=function(){};
 		},
 		waiting:function(){
-			chrome.browserAction.setIcon(button.constant.icon);
-			chrome.browserAction.setBadgeBackgroundColor(button.constant.badgeWait);
-			chrome.browserAction.setTitle({title:chrome.i18n.getMessage("next")+"\n\t"
+			button.button.badge.display="block";
+			button.button.icon=button.constant.icon;
+			button.button.badge.backgroundColor =button.constant.badge;
+			button.button.badge.color = button.constant.txt;
+			button.button.title="Další topnutí:\n\t"
 				+time.getDateString()+" \n\t"
-				+time.getTimeString()});
+				+time.getTimeString();
 			button.onUpdate=function(){
-				chrome.browserAction.setBadgeText({text:time.getLeftString(button.constant.labels)});
+				button.button.badge.textContent=time.getLeftString();
 			};
 		},
 		working:function(){
-			chrome.browserAction.setIcon(button.constant.icon);
-			chrome.browserAction.setBadgeBackgroundColor(button.constant.badgeTop);
-			chrome.browserAction.setTitle({title:chrome.i18n.getMessage("top")});
-			chrome.browserAction.setBadgeText({text:"top"});
+			button.button.badge.display="block";
+			button.button.icon=button.constant.icon;
+			button.button.badge.backgroundColor =button.constant.badgeOff;
+			button.button.badge.color = button.constant.txtOff;
+			button.button.badge.textContent="top";
+			button.button.title="Topuju…";
 			button.onUpdate=function(){};
 		},
 		offline:function(){
-			chrome.browserAction.setIcon(button.constant.iconOff);
-			chrome.browserAction.setBadgeBackgroundColor(button.constant.badgeLoad);
-			chrome.browserAction.setTitle({title:chrome.i18n.getMessage("offline")+"\n\t"
-				+chrome.i18n.getMessage("offline_help")});
-			chrome.browserAction.setBadgeText({text:""});
+			button.button.badge.display="none";
+			button.button.icon=button.constant.iconOff;
+			button.button.title="Nepodařilo se připojit k serveru!";
 			button.onUpdate=function(){};
 		},
 	},
